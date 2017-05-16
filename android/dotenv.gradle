@@ -46,6 +46,9 @@ def readDotEnv(variant) {
 }
 
 def addBuildConfigFields(variant, envVars) {
+    variant.productFlavors.each {flavor ->
+        flavor.ext.rncFields = envVars
+    }
     envVars.each { k, v ->
         def escaped = v.replaceAll("%","\\\\u0025")
         variant.buildConfigField("String", k, "\"$v\"")
